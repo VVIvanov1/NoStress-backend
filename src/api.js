@@ -60,7 +60,9 @@ const { errorHandler } = require("../middleware/errorHandler");
 //   res.status(err.status || 500);
 //   res.send({ error: { message: err.message } });
 // });
-
+app.get("/", (req, res) => {
+  res.json({ message: "ok!" });
+});
 app.use("/.netlify/functions/api/orders", orderRouter);
 app.use("/.netlify/functions/api/users", userRouter);
 
