@@ -1,0 +1,89 @@
+.login-overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login-screen {
+  background: #fff;
+  max-width: 30vw;
+  padding: 30px;
+  height: fit-content;
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+}
+.login-form {
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.login-form input {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #828282;
+  border-radius: 3px;
+}
+
+.login-form-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.register-btn {
+  background: #fff;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: darkcyan;
+  cursor: pointer;
+}
+.login-form-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: #828282;
+}
+.login-btn {
+  background: darkcyan;
+  border: 1px solid darkcyan;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 16px 5px 16px;
+  cursor: pointer;
+}
+.close-login-btn {
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #fff;
+  color: darkcyan;
+}
+.forgot-password-link {
+  padding: 0;
+  margin: 0;
+  align-self: flex-end;
+  color: darkcyan;
+  cursor: pointer;
+}
+.register-btn-submit {
+  width: 100%;
+  background: darkcyan;
+  border: 1px solid darkcyan;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 16px 5px 16px;
+  cursor: pointer;
+}

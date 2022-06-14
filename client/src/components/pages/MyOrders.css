@@ -1,0 +1,217 @@
+.my-orders-container {
+  display: grid;
+}
+.my-order-card {
+  display: grid;
+  grid-template-areas:
+    "top right"
+    "bottom right"
+    "comments comments";
+  grid-template-columns: 4fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+@media (max-width: 650px) {
+  .my-order-card {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      "top right"
+      "bottom right"
+      "comments comments";
+  }
+}
+
+.my-order-card__comments {
+  margin: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #e66ae12b;
+  border-radius: 5px;
+  grid-area: comments;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 5fr 1fr;
+  color: darkcyan;
+  grid-template-areas: "comment button";
+  padding-left: 10px;
+  padding-right: 10px;
+}
+@media (max-width: 650px) {
+  .my-order-card__comments {
+    grid-template-columns: 4fr;
+    grid-template-areas:
+      "comment"
+      "button";
+    grid-auto-flow: row;
+    justify-items: flex-end;
+  }
+}
+.comments-section {
+  width: -webkit-fill-available;
+}
+.edit-comments-btn {
+  grid-area: button;
+  padding: 6px;
+  align-items: center;
+}
+
+.edit-comments-buttons {
+  max-width: 280px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 12px;
+}
+.row-item-right {
+  grid-area: right;
+  display: grid;
+  grid-gap: 10px;
+  gap: 10px;
+  grid-template-areas:
+    "topstat topstat"
+    "share close";
+  padding-right: 10px;
+}
+@media (max-width: 650px) {
+  .row-item-right {
+    grid-template-areas:
+      "topstat"
+      "share"
+      "close";
+  }
+  .my-order-card__comments {
+    gap: 5px;
+  }
+  .new-comment-section {
+    width: -webkit-fill-available;
+  }
+  textarea {
+    width: -webkit-fill-available;
+  }
+}
+.burning-order {
+  color: #d73535;
+}
+.order-type-mark {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 17px;
+  width: 17px;
+  align-items: end;
+  border-radius: 50%;
+  color: #fff;
+  background: darkcyan;
+  border: 2px solid darkcyan;
+  cursor: pointer;
+}
+.phone {
+  padding-left: 10px;
+}
+.top-status {
+  flex-wrap: wrap;
+}
+.order-type-mark * {
+  width: 25px;
+  height: 25px;
+}
+.order-type-mark:hover {
+  color: darkcyan;
+  background: #fff;
+}
+
+.my-order-card__top {
+  display: grid;
+  grid-area: top;
+  /* grid-template-areas: "top top top"; */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}
+
+.my-order-card__bottom {
+  grid-area: bottom;
+  display: grid;
+  /* grid-template-areas: "bottom bottom bottom"; */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}
+
+.row-item {
+  display: flex;
+  gap: 10px;
+  padding: 9px;
+  align-items: center;
+}
+.comments-btn {
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.comments-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.my-order-close-btn {
+  background: #fff;
+  cursor: pointer;
+  width: min-content;
+  grid-area: close;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  display: flex;
+  gap: 10px;
+}
+.top-status {
+  grid-area: topstat;
+  justify-content: flex-end;
+}
+.my-order-share-btn {
+  grid-area: share;
+  background: #fff;
+  cursor: pointer;
+  width: min-content;
+  border: none;
+  display: flex;
+  gap: 10px;
+}
+.edit-comments-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 6px;
+}
+.edit-comment-btn,
+.save-comment-btn {
+  cursor: pointer;
+  display: flex;
+  color: #fff;
+  background: #e66ae1;
+  border: 1px solid #e66ae1;
+  padding: 6px;
+  border-radius: 6px;
+  gap: 10px;
+  text-transform: capitalize;
+}
+textarea {
+  width: -webkit-fill-available;
+}
+
+.comment {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  padding: 5px;
+}
+.comment * {
+  margin: 0;
+}
