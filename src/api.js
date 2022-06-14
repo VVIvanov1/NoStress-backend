@@ -7,7 +7,10 @@ const app = express();
 const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://backend-baigroupkz.netlify.app",
+];
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1) {
