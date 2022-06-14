@@ -7,14 +7,15 @@ const Lead = require("../models/leadModel");
 // @route   GET ...../api/
 // @access  Public
 const getOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({});
+  res.status(200).json({ message: "test_" });
+  // const orders = await Order.find({});
 
-  if (!orders) {
-    res.status(400);
-    throw new Error("No orders found");
-  } else {
-    res.status(200).json(orders);
-  }
+  // if (!orders) {
+  //   res.status(400);
+  //   throw new Error("No orders found");
+  // } else {
+  //   res.status(200).json(orders);
+  // }
 });
 
 // @desc Save new order
