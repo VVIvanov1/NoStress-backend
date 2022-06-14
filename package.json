@@ -2,13 +2,14 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server-local.js",
   "scripts": {
     "start": "node server-local.js",
+    "stage": "netlify-lambda serve src",
     "server": "nodemon server-local.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "./node_modules/.bin/netlify-lambda build src"
+    "build": "netlify-lambda build src"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,7 @@
     "nodemailer": "^6.7.5",
     "nodemon": "^2.0.16",
     "npm-run-all": "^4.1.5",
+    "serve": "^13.0.2",
     "serverless-http": "^3.0.1"
   }
 }
