@@ -9,7 +9,7 @@ const path = require("path");
 app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://backend-baigroupkz.netlify.app",
+  "https://corp-baigroupkz.netlify.app/",
 ];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -26,26 +26,6 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-// app.use(cors());
-// app.use(
-//   cors({
-//     // origin: function (origin, callback) {
-//     //   return callback(null, true);
-//     // },
-//     optionsSuccessStatus: 200,
-//     credentials: true,
-//     origin: "http://localhost:3000",
-//   })
-// );
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "http://localhost:5000");
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
 
 const orderRouter = require("../routes/orderRoutes");
 const userRouter = require("../routes/userRoutes");
@@ -54,23 +34,13 @@ mongoDB();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const { errorHandler } = require("../middleware/errorHandler");
-// app.use((req, res, next) => {
-//   const err = new Error("Not found");
-//   err.status = 404;
-//   next(err);
-// });
 
-// app.use((err, req, res, next) => {
-//   res.status(err.status || 500);
-//   res.send({ error: { message: err.message } });
-// });
-app.get("/", (req, res) => {
-  res.json({ message: "ok!" });
-});
-app.use("/.netlify/functions/api/orders", orderRouter);
-app.use("/.netlify/functions/api/users", userRouter);
+app.use("/orders", orderRouter);
+app.use("/users", userRouter);
 
-// app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(errorHandler);
+module.exports = app;
+module.exports.handler = serverless(app);
 
 // app.get("*", (req, res) =>
 //   res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"))
@@ -83,7 +53,3 @@ app.use("/.netlify/functions/api/users", userRouter);
 //     );
 //   });
 // }
-
-app.use(errorHandler);
-module.exports = app;
-module.exports.handler = serverless(app);

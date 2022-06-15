@@ -5,11 +5,7 @@
   "main": "server-local.js",
   "scripts": {
     "start": "node server-local.js",
-    "stage": "netlify-lambda serve src",
-    "server": "nodemon server-local.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "netlify-lambda build src"
+    "server": "nodemon server-local.js"
   },
   "keywords": [],
   "author": "",
@@ -31,5 +27,8 @@
     "npm-run-all": "^4.1.5",
     "serve": "^13.0.2",
     "serverless-http": "^3.0.1"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
