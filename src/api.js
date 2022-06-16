@@ -8,23 +8,38 @@ const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
 
-var allowlist = [
-  "http://localhost:3000",
-  "https://corp-baigroupkz.netlify.app",
-];
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header("Origin")) !== -1) {
-    corsOptions = {
-      origin: true,
-      Headers: { "Access-Control-Allow-Credentials": true },
-    }; // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false }; // disable CORS for this request
+var cors = function (req, res, next) {
+  var whitelist = [
+    "https://corp-baigroupkz.netlify.app",
+    "http://localhost:3000",
+  ];
+  var origin = req.headers.origin;
+  if (whitelist.indexOf(origin) > -1) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  callback(null, corsOptions); // callback expects two parameters: error and options
+  res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  next();
 };
-app.use(cors(corsOptionsDelegate));
+app.use(cors);
+
+// var allowlist = [
+//   "http://localhost:3000",
+//   "https://corp-baigroupkz.netlify.app",
+// ];
+// var corsOptionsDelegate = function (req, callback) {
+//   var corsOptions;
+//   if (allowlist.indexOf(req.header("Origin")) !== -1) {
+//     corsOptions = {
+//       origin: true,
+//       Headers: { "Access-Control-Allow-Credentials": "true" },
+//     }; // reflect (enable) the requested origin in the CORS response
+//   } else {
+//     corsOptions = { origin: false }; // disable CORS for this request
+//   }
+//   callback(null, corsOptions); // callback expects two parameters: error and options
+// };
+// app.use(cors(corsOptionsDelegate));
 // app.use(
 //   cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
 // );
