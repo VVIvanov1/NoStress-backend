@@ -7,9 +7,25 @@ const app = express();
 const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
-app.use(
-  cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
-);
+
+var allowlist = [
+  "http://localhost:3000",
+  "https://corp-baigroupkz.netlify.app",
+];
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+app.use(cors(corsOptionsDelegate));
+// app.use(
+//   cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
+// );
+// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 // const allowedOrigins = [
 //   "http://localhost:3000",
 //   "https://corp-baigroupkz.netlify.app",
