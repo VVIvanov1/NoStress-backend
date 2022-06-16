@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 
 const Order = require("../models/orderModel");
 const Lead = require("../models/leadModel");
+const User = require("../models/userModel");
 
 // @desc    Get orders
 // @route   GET ...../api/
@@ -16,6 +17,12 @@ const getOrders = asyncHandler(async (req, res) => {
   } else {
     res.status(200).json(orders);
   }
+});
+const getMyOrders = asyncHandler(async (req, res) => {
+  const user = req.params.user;
+  const myOrders = await Order.find(user);
+  console.log(myOrders);
+  res.json(myOrders);
 });
 
 // @desc Save new order
@@ -38,8 +45,8 @@ const newOrderWeb = asyncHandler(async (req, res) => {
 const newOrderManual = asyncHandler(async (req, res) => {
   try {
     let ress = await saveNewOrder(req.body, "Manual");
-    let lead = await saveNewLead(req.body);
-    res.status(200).json({ status: "ok" });
+    let lead = await saveNewLead({ order: req.body, orderId: ress._id });
+    res.status(200).json(ress);
   } catch (error) {
     console.log(error);
   }
@@ -47,18 +54,31 @@ const newOrderManual = asyncHandler(async (req, res) => {
 
 // @desc Function to save new order to Db
 async function saveNewOrder(obj, source) {
+  const user = await User.findOne({ email: obj.auth.email });
+  let date = new Date().toLocaleDateString("ru", { timeZone: "Asia/Almaty" });
+  let hours = new Date().getHours();
+  let minutes = new Date().getMinutes();
   const ord = new Order({
-    user: obj.user,
+    user: user._id,
     assignee: null,
-    page: obj.page,
-    url: obj.url,
+    page: obj.destination,
+    url: null,
     source: source,
     name: obj.name,
     phone: obj.phone,
-    status: "New",
-    comments: [],
+    status: "in progress",
+    comments: obj.comment
+      ? [
+          {
+            text: obj.comment,
+            user: user.name,
+            date: `${date}, ${hours}:${minutes}`,
+          },
+        ]
+      : [],
   });
   await ord.save();
+  return ord;
 }
 async function saveNewLead(obj) {
   let lead = await Lead.findOne({ phone: obj.phone });
@@ -66,9 +86,14 @@ async function saveNewLead(obj) {
     let newLead = await Lead.create({
       name: obj.name,
       phone: obj.phone,
-      orders: [obj.page],
+      orders: [{ destination: obj.order.destination, order: obj.orderId }],
     });
-    console.log("it is done!");
+  } else {
+    lead.orders = [
+      ...lead.orders,
+      { destination: obj.order.destination, order: obj.orderId },
+    ];
+    await lead.save();
   }
 }
 // @desc Function to retrieve speciffic order by ID
@@ -90,6 +115,7 @@ module.exports = {
   newOrderWeb,
   newOrderManual,
   getOrder,
+  getMyOrders,
   //   getNewOrders,
   //   getCurrentOrders,
   //   getClosedOrders,
