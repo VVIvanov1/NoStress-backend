@@ -7,25 +7,28 @@ const app = express();
 const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://corp-baigroupkz.netlify.app",
-];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      var msg =
-        "The CORS policy for this site does not " +
-        "allow access from the specified Origin.";
-      callback(new Error(msg), false);
-    }
-  },
-  optionsSuccessStatus: 200,
-  // credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(
+  cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
+);
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://corp-baigroupkz.netlify.app",
+// ];
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       var msg =
+//         "The CORS policy for this site does not " +
+//         "allow access from the specified Origin.";
+//       callback(new Error(msg), false);
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+//   // credentials: true,
+// };
+// app.use(cors(corsOptions));
 // var corsOptions = {
 //   origin: "http://example.com",
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
