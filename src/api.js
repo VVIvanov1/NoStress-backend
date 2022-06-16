@@ -8,21 +8,21 @@ const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
 
-var whitelist = [
-  "https://corp-baigroupkz.netlify.app/",
-  "http://localhost:3000",
-];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+// var whitelist = [
+//   "https://corp-baigroupkz.netlify.app/",
+//   "http://localhost:3000",
+// ];
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // var allowlist = [
 //   "http://localhost:3000",
@@ -41,9 +41,9 @@ app.use(cors(corsOptions));
 //   callback(null, corsOptions); // callback expects two parameters: error and options
 // };
 // app.use(cors(corsOptionsDelegate));
-// app.use(
-//   cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
-// );
+app.use(
+  cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
+);
 // app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 // const allowedOrigins = [
 //   "http://localhost:3000",
