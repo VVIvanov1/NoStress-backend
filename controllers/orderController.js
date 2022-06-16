@@ -21,7 +21,7 @@ const getOrders = asyncHandler(async (req, res) => {
 const getMyOrders = asyncHandler(async (req, res) => {
   const user = req.params.user;
   const myOrders = await Order.find(user);
-  console.log(myOrders);
+
   res.json(myOrders);
 });
 

@@ -11,21 +11,22 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://corp-baigroupkz.netlify.app/",
 ];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      var msg =
-        "The CORS policy for this site does not " +
-        "allow access from the specified Origin.";
-      callback(new Error(msg), false);
-    }
-  },
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       var msg =
+//         "The CORS policy for this site does not " +
+//         "allow access from the specified Origin.";
+//       callback(new Error(msg), false);
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+//   // credentials: true,
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 
 const orderRouter = require("../routes/orderRoutes");
 const userRouter = require("../routes/userRoutes");
