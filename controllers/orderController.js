@@ -126,6 +126,7 @@ module.exports = {
   newOrderManual,
   getOrder,
   getMyOrders,
+  saveNewWebOrder,
   //   getNewOrders,
   //   getCurrentOrders,
   //   getClosedOrders,

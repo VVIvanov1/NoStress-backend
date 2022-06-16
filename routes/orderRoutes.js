@@ -7,13 +7,14 @@ const {
   newOrderManual,
   getOrder,
   getMyOrders,
+  saveNewWebOrder,
 } = require("../controllers/orderController");
 
 router.get("/", getOrders);
 
 router.get("/order", getOrder);
 
-router.post("/new", newOrderWeb);
+router.post("/new", saveNewWebOrder);
 
 router.post("/new-manual", newOrderManual);
 
