@@ -49,7 +49,16 @@ const newOrderManual = asyncHandler(async (req, res) => {
     console.log(error);
   }
 });
-async function saveNewWebOrder(obj) {
+
+const saveNewWebOrder = asyncHandler(async (req, res) => {
+  try {
+    let newOrder = await saveNewWeb(req.body);
+    res.status(200).json(newOrder);
+  } catch (error) {
+    console.error(error);
+  }
+});
+async function saveNewWeb(obj) {
   console.log(obj);
   let parsed = JSON.parse(Object.keys(obj));
 
