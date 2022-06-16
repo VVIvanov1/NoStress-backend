@@ -9,7 +9,7 @@ const path = require("path");
 app.use(cookieParser());
 
 var whitelist = [
-  "https://corp-baigroupkz.netlify.app",
+  "https://corp-baigroupkz.netlify.app/",
   "http://localhost:3000",
 ];
 var corsOptions = {
