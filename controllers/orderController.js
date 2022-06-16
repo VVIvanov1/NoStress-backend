@@ -30,9 +30,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @access From website
 const newOrderWeb = asyncHandler(async (req, res) => {
   try {
-    let ress = await saveNewOrder(req.body, "Web");
-    // console.log(ress);
-
+    let ress = await saveNewWebOrder(req.body);
     res.status(200).json({ status: "ok" });
   } catch (error) {
     console.log(error);
@@ -51,6 +49,17 @@ const newOrderManual = asyncHandler(async (req, res) => {
     console.log(error);
   }
 });
+async function saveNewWebOrder(obj) {
+  const ord = new Order({
+    page: obj.destination,
+    name: obj.name,
+    phone: obj.phone,
+    status: "new",
+    source: "Web",
+  });
+  await ord.save();
+  return ord;
+}
 
 // @desc Function to save new order to Db
 async function saveNewOrder(obj, source) {
