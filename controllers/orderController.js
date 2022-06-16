@@ -31,7 +31,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 const newOrderWeb = asyncHandler(async (req, res) => {
   try {
     let ress = await saveNewWebOrder(req.body);
-    res.status(200).json({ status: "ok" });
+    res.status(200).json(req.body);
   } catch (error) {
     console.log(error);
   }
@@ -50,6 +50,7 @@ const newOrderManual = asyncHandler(async (req, res) => {
   }
 });
 async function saveNewWebOrder(obj) {
+  console.log(obj);
   const ord = new Order({
     page: obj.destination,
     name: obj.name,
