@@ -51,8 +51,8 @@ const newOrderManual = asyncHandler(async (req, res) => {
 });
 async function saveNewWebOrder(obj) {
   console.log(obj);
-  let parsed = obj;
-  console.log(parsed);
+  let parsed = JSON.parse(Object.keys(obj));
+
   const ord = new Order({
     page: parsed.destination,
     name: parsed.name,

@@ -21,13 +21,13 @@ function returnAccessControlHeader(req) {
     return false;
   }
 }
-app.use((req, res, next) => {
-  console.log(req.path);
-  console.log(req.params);
-  console.log(req.query);
-  console.dir(req.body);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.path);
+//   console.log(req.params);
+//   console.log(req.query);
+//   console.dir(req.body);
+//   next();
+// });
 
 app.use((req, res, next) => {
   let hdr = returnAccessControlHeader(req);
