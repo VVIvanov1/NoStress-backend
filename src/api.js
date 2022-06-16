@@ -12,6 +12,7 @@ function returnAccessControlHeader(req) {
   let allowed = [
     "http://localhost:3000",
     "https://corp-baigroupkz.netlify.app",
+    "http://project5380228.tilda.ws",
   ];
   if (allowed.indexOf(req.headers.origin) !== -1) {
     return req.headers.origin;
