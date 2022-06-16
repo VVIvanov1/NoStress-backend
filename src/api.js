@@ -8,20 +8,21 @@ const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
 
-var cors = function (req, res, next) {
-  var whitelist = [
-    "https://corp-baigroupkz.netlify.app",
-    "http://localhost:3000",
-  ];
-  var origin = req.headers.origin;
-  if (whitelist.indexOf(origin) > -1) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
-  next();
+var whitelist = [
+  "https://corp-baigroupkz.netlify.app",
+  "http://localhost:3000",
+];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
 };
-app.use(cors);
+
+app.use(cors(corsOptions));
 
 // var allowlist = [
 //   "http://localhost:3000",
