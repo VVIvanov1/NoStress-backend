@@ -8,67 +8,39 @@ const mongoDB = require("../config/db");
 const path = require("path");
 app.use(cookieParser());
 
-// var whitelist = [
-//   "https://corp-baigroupkz.netlify.app/",
-//   "http://localhost:3000",
-// ];
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
+function returnAccessControlHeader(req) {
+  let allowed = [
+    "http://localhost:3000",
+    "https://corp-baigroupkz.netlify.app",
+  ];
+  if (allowed.indexOf(req.headers.origin) !== -1) {
+    return req.headers.origin;
+  } else {
+    return false;
+  }
+}
+app.use((req, res, next) => {
+  console.log(req.path);
+  console.log(req.params);
+  console.log(req.query);
+  next();
+});
 
-// app.use(cors(corsOptions));
-
-// var allowlist = [
-//   "http://localhost:3000",
-//   "https://corp-baigroupkz.netlify.app",
-// ];
-// var corsOptionsDelegate = function (req, callback) {
-//   var corsOptions;
-//   if (allowlist.indexOf(req.header("Origin")) !== -1) {
-//     corsOptions = {
-//       origin: true,
-//       Headers: { "Access-Control-Allow-Credentials": "true" },
-//     }; // reflect (enable) the requested origin in the CORS response
-//   } else {
-//     corsOptions = { origin: false }; // disable CORS for this request
-//   }
-//   callback(null, corsOptions); // callback expects two parameters: error and options
-// };
-// app.use(cors(corsOptionsDelegate));
-app.use(
-  cors({ credentials: true, origin: "https://corp-baigroupkz.netlify.app" })
-);
-// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-// const allowedOrigins = [
-//   "http://localhost:3000",
-//   "https://corp-baigroupkz.netlify.app",
-// ];
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       var msg =
-//         "The CORS policy for this site does not " +
-//         "allow access from the specified Origin.";
-//       callback(new Error(msg), false);
-//     }
-//   },
-//   optionsSuccessStatus: 200,
-//   // credentials: true,
-// };
-// app.use(cors(corsOptions));
-// var corsOptions = {
-//   origin: "http://example.com",
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
-// app.use(cors());
+app.use((req, res, next) => {
+  let hdr = returnAccessControlHeader(req);
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested, Content-Type, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Origin", hdr);
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader("Content-Type", "application/json");
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS,POST,GET");
+    return res.status(200).json({});
+  }
+  next();
+});
 
 const orderRouter = require("../routes/orderRoutes");
 const userRouter = require("../routes/userRoutes");

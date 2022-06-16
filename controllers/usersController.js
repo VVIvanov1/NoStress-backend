@@ -37,14 +37,14 @@ const registerUser = asyncHandler(async (req, res) => {
       tempMail.jwtToken
     );
 
-    res.status(201).json({
+    return res.status(201).json({
       _id: user.id,
       name: user.name,
       email: user.email,
       // token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({ message: "Что-то пошло не так..." });
+    return res.status(400).json({ message: "Что-то пошло не так..." });
     // throw new Error("Что-то пошло не так...");
   }
 });
@@ -155,7 +155,7 @@ const loginUser = asyncHandler(async (req, res) => {
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
       });
-      res.json({ accessToken, name: result.name, email: result.email });
+      return res.json({ accessToken, name: result.name, email: result.email });
     }
   }
 });
@@ -164,7 +164,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  return res.status(200).json(req.user);
 });
 
 // @desc Get token data in DB for mail being verified
