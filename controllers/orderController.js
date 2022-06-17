@@ -50,16 +50,16 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @desc Save new order
 // @route POST ...../api/newrequest
 // @access From website
-const newOrderWeb = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  try {
-    let ress = await saveNewWebOrder(req.body);
-    let lead = await saveNewLead({ order: req.body, orderId: ress._id });
-    res.status(200).json(req.body);
-  } catch (error) {
-    console.log(error);
-  }
-});
+// const newOrderWeb = asyncHandler(async (req, res) => {
+//   console.log(req.body);
+//   try {
+//     let ress = await saveNewWebOrder(req.body);
+//     let lead = await saveNewLead({ order: req.body, orderId: ress._id });
+//     res.status(200).json(req.body);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 // @desc Save new manual order
 // @route POST ...../api/new-manual
@@ -75,13 +75,14 @@ const newOrderManual = asyncHandler(async (req, res) => {
 });
 
 const saveNewWebOrder = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ message: "ok" });
+  // console.log(req.body);
+  // res.status(200).json({ message: "ok" });
   try {
     let newOrder = await saveNewWeb(req.body);
     res.status(200).json({ status: "ok" });
   } catch (error) {
     console.error(error);
+    res.status(400);
   }
 });
 // {
