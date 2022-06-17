@@ -21,14 +21,16 @@ const getOrders = asyncHandler(async (req, res) => {
 });
 // @desc Function to get user id from headers
 function getUserId(obj) {
-  const jwtoken = obj.split(" ")[1];
+  const jwtoken = obj;
   const decoded = jwt.decode(jwtoken, process.env.JWT_SECRET);
-  return decoded.id._id;
+
+  return decoded.id;
 }
 // retrieve my current or closed orders
 // aka http://localhost:5000/orders/get-my-orders?closed=true
 const getMyOrders = asyncHandler(async (req, res) => {
-  let userId = getUserId(req.headers.authorization);
+  let userId = getUserId(req.cookies.jwt);
+
   try {
     const myOrders = await Order.find({ user: userId });
     if (myOrders) {

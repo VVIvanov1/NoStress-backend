@@ -21,23 +21,15 @@ function returnAccessControlHeader(req) {
     return false;
   }
 }
-// app.use((req, res, next) => {
-//   console.log(req.path);
-//   console.log(req.params);
-//   console.log(req.query);
-//   console.dir(req.body);
-//   next();
-// });
 app.use((req, res, next) => {
-  console.log(req.body);
+  console.log(req.cookies);
   next();
 });
-
 app.use((req, res, next) => {
   let hdr = returnAccessControlHeader(req);
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested, Content-Type, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.setHeader("Access-Control-Allow-Origin", hdr);
   res.setHeader("Access-Control-Allow-Credentials", true);

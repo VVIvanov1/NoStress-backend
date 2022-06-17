@@ -122,7 +122,7 @@ const loginUser = asyncHandler(async (req, res) => {
       const { _id, name, email } = foundUser;
       const accessToken = generateToken({ _id, name, email });
       const newRefreshToken = jwt.sign(
-        { name: foundUser.name, email: foundUser.email },
+        { name: foundUser.name, email: foundUser.email, id: foundUser._id },
         process.env.JWT_REFRESH_SECRET,
         { expiresIn: "2d" }
       );
