@@ -155,7 +155,12 @@ const loginUser = asyncHandler(async (req, res) => {
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
       });
-      return res.json({ accessToken, name: result.name, email: result.email });
+      return res.json({
+        accessToken,
+        name: result.name,
+        email: result.email,
+        id: result._id,
+      });
     }
   }
 });

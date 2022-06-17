@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Order = require("../models/orderModel");
 const Lead = require("../models/leadModel");
 const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 
 // @desc    Get orders
 // @route   GET ...../api/
@@ -18,11 +19,32 @@ const getOrders = asyncHandler(async (req, res) => {
     res.status(200).json(orders);
   }
 });
+// @desc Function to get user id from headers
+function getUserId(obj) {
+  const jwtoken = obj.split(" ")[1];
+  const decoded = jwt.decode(jwtoken, process.env.JWT_SECRET);
+  return decoded.id._id;
+}
+// retrieve my current or closed orders
+// aka http://localhost:5000/orders/get-my-orders?closed=true
 const getMyOrders = asyncHandler(async (req, res) => {
-  const user = req.params.user;
-  const myOrders = await Order.find(user);
-
-  res.json(myOrders);
+  let userId = getUserId(req.headers.authorization);
+  try {
+    const myOrders = await Order.find({ user: userId });
+    if (myOrders) {
+      myOrders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      if (!req.query.closed) {
+        let currentOrders = myOrders.filter((o) => o.status === "in progress");
+        res.status(200).json(currentOrders);
+      } else {
+        let currentOrders = myOrders.filter((o) => o.status === "closed");
+        res.status(200).json(currentOrders);
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 });
 
 // @desc Save new order
