@@ -76,21 +76,27 @@ const newOrderManual = asyncHandler(async (req, res) => {
 const saveNewWebOrder = asyncHandler(async (req, res) => {
   console.log(req.body);
   res.status(200).json({ message: "ok" });
-  // try {
-  //   let newOrder = await saveNewWeb(req.body);
-  //   res.status(200).json(newOrder);
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  try {
+    let newOrder = await saveNewWeb(req.body);
+    res.status(200).json({ status: "ok" });
+  } catch (error) {
+    console.error(error);
+  }
 });
+// {
+// 2022-06-17T15:19:54.543809+00:00 app[web.1]: name: 'PAFNUTY',
+// 2022-06-17T15:19:54.543809+00:00 app[web.1]: Phone: '87022936891',
+// 2022-06-17T15:19:54.543809+00:00 app[web.1]: tranid: '5380228:3481174361',
+// 2022-06-17T15:19:54.543809+00:00 app[web.1]: formid: 'form445829603',
+// 2022-06-17T15:19:54.543810+00:00 app[web.1]: formname: 'Borovoe'
+// 2022-06-17T15:19:54.543810+00:00 app[web.1]: }
 async function saveNewWeb(obj) {
-  console.log(obj);
-  let parsed = JSON.parse(Object.keys(obj));
+  // let parsed = JSON.parse(Object.keys(obj));
 
   const ord = new Order({
-    page: parsed.destination,
-    name: parsed.name,
-    phone: parsed.phone,
+    page: obj.formname,
+    name: obj.name,
+    phone: obj.Phone,
     status: "new",
     source: "Web",
   });
