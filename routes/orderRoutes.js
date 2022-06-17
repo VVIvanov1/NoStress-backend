@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
   getOrders,
-  newOrderWeb,
+
   newOrderManual,
   getOrder,
   getMyOrders,

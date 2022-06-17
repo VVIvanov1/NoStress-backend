@@ -166,7 +166,7 @@ const getOrder = asyncHandler(async (req, res) => {
 
 module.exports = {
   getOrders,
-  newOrderWeb,
+
   newOrderManual,
   getOrder,
   getMyOrders,
