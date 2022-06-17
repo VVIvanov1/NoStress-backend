@@ -51,6 +51,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @route POST ...../api/newrequest
 // @access From website
 const newOrderWeb = asyncHandler(async (req, res) => {
+  console.log(req.body);
   try {
     let ress = await saveNewWebOrder(req.body);
     let lead = await saveNewLead({ order: req.body, orderId: ress._id });
