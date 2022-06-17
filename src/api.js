@@ -28,6 +28,10 @@ function returnAccessControlHeader(req) {
 //   console.dir(req.body);
 //   next();
 // });
+app.use((req, res, next) => {
+  console.log(req.body);
+  next();
+});
 
 app.use((req, res, next) => {
   let hdr = returnAccessControlHeader(req);
