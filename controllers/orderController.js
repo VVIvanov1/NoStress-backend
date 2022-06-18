@@ -10,13 +10,11 @@ const jwt = require("jsonwebtoken");
 // @access  Public
 const getOrders = asyncHandler(async (req, res) => {
   // res.status(200).json({ message: "test_" });
-  const orders = await Order.find({});
-
-  if (!orders) {
-    res.status(400);
-    throw new Error("No orders found");
-  } else {
+  try {
+    const orders = await Order.find({});
     res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
   }
 });
 // @desc Function to get user id from headers

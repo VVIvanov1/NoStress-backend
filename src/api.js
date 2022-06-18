@@ -1,7 +1,7 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+// const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const mongoDB = require("../config/db");
@@ -21,10 +21,10 @@ function returnAccessControlHeader(req) {
     return false;
   }
 }
-app.use((req, res, next) => {
-  console.log(req.cookies);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log(req.cookies);
+//   next();
+// });
 app.use((req, res, next) => {
   let hdr = returnAccessControlHeader(req);
   res.setHeader(
@@ -55,15 +55,3 @@ app.use("/users", userRouter);
 app.use(errorHandler);
 module.exports = app;
 module.exports.handler = serverless(app);
-
-// app.get("*", (req, res) =>
-//   res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"))
-// );
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("../../NoStress-front/build"));
-//   app.get("*", (req, res) => {
-//     res.sendFile(
-//       path.resolve(__dirname, "NoStress-front", "build", "index.html")
-//     );
-//   });
-// }

@@ -61,7 +61,7 @@ const handleRefreshToken = async (req, res) => {
             id: foundUser._id,
           },
           process.env.JWT_REFRESH_SECRET,
-          { expiresIn: "15s" }
+          { expiresIn: "1d" }
         );
         // Saving refreshToken with current user
         foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
