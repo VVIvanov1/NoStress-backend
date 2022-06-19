@@ -8,7 +8,7 @@ const emailSchema = mongoose.Schema({
   jwtToken: {
     type: String,
   },
-  createdAt: { type: Date, expires: "1d", default: Date.now },
+  createdAt: { type: Date, expires: "3h", default: Date.now },
 });
 
 module.exports = mongoose.model("Email", emailSchema);

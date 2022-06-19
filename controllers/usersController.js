@@ -165,13 +165,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get user data
-// @route   GET /api/users/me
-// @access  Private
-const getMe = asyncHandler(async (req, res) => {
-  return res.status(200).json(req.user);
-});
-
 // @desc Get token data in DB for mail being verified
 const verifyEmail = asyncHandler(async (req, res) => {
   const token = req.query.token;
@@ -194,6 +187,6 @@ module.exports = {
   registerUser,
 
   loginUser,
-  getMe,
+  // getMe,
   verifyEmail,
 };
